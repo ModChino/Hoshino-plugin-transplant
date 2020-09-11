@@ -13,6 +13,7 @@ wife_lists = user_list()
 sv = Service('laopo', enable_on_default=False)
 
 MANUAL = '''
+指令表：
 1.老婆
 2.老婆的个人信息
 3.老婆骂我

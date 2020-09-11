@@ -82,7 +82,7 @@ class wife:
             high -= 30
         self.height = str(high)
 
-        weight = random.randint(85, 110)
+        weight = random.randint(45, 60)
         self.weight = str(weight)
 
         bud = random.randint(0, len(mengDian) - 1)
