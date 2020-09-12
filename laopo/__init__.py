@@ -163,12 +163,6 @@ async def _(session: NLPSession):
     return
 
 
-@sv.on_natural_language(only_to_me=False)
-async def call_one_wife(session: NLPSession):
-    t1 = threading.Thread(target=searchWife, args=(session,))
-    t1.start()
-
-
 def searchWife(session):
     msg = session.msg_text
     loop = asyncio.new_event_loop()
