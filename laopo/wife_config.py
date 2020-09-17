@@ -127,3 +127,12 @@ async def get_love_scence():
     except:
         data = "今日次数达到上限"
     return data
+
+
+async def get_love_kotoba():
+    try:
+        url = "https://api.lovelive.tools/api/SweetNothings"
+        data = requests.get(url,timeout=3).text
+    except:
+        data = "今日次数达到上限"
+    return data
