@@ -19,8 +19,9 @@ MANUAL = '''
 3.老婆骂我
 4.结婚
 5.老婆！/爱我/爱你
-6.分手
-7.我的渣男值
+6.情话
+7.分手
+8.我的渣男值
 '''.strip()
 
 @sv.on_command('老婆帮助', only_to_me=False)
@@ -289,5 +290,21 @@ async def love(session: NLPSession):
                     i.scence = await get_love_scence()
                 await session.send(message=str(i.name) + ":" + str(i.scence), at_sender=True)
                 i.scence = await get_love_scence()
+    else:
+        await session.send(message="你没有老婆", at_sender=True)
+
+
+@sv.on_command('wife_kotoba', aliases=('情话', '土味情话'), only_to_me=False)
+async def kotoba(session: NLPSession):
+    send_user = session.event['user_id']
+    if send_user in wife_lists.user:
+        for i in wife_lists.user_wife_list:
+            if i.husband == send_user:
+                i.isTalk = True
+                i.liking += 2
+                if i.scence == None:
+                    i.scence = await get_love_kotoba()
+                await session.send(message=str(i.name) + ":" + str(i.scence), at_sender=True)
+                i.scence = await get_love_kotoba()
     else:
         await session.send(message="你没有老婆", at_sender=True)
