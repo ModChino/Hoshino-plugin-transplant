@@ -1,5 +1,5 @@
 import aiohttp
-from nonebot import on_command, CommandSession
+from hoshino.typing import *
 from hoshino import Service
 
 sv = Service('zhihu')
