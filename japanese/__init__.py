@@ -1,4 +1,4 @@
-from nonebot import on_command, CommandSession
+from hoshino.typing import *
 from kth_timeoutdecorator import TimeoutException
 import hoshino
 from .japanese import get_definition_of_word
