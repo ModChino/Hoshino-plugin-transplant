@@ -25,7 +25,7 @@ async def help(session: CommandSession):
     await session.send(help_text)
 
 
-@sv.on_command('best', only_to_me=False)
+@on_command('best', only_to_me=False)
 async def lookup(session: CommandSession):
     await session.send("Looking up %s\nWarning: best命令具有刷屏风险，大于10请尽量私聊查询~" % session.state['id'])
     QueryThread(session.cmd, session.ctx, session.bot, session.state).start()
