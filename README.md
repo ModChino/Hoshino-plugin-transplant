@@ -10,7 +10,7 @@
 
 ### Arcaea查询
 
-关于音游Arcaea的相关查询。发送arc帮助可以查看相关指令。需要安装依赖demjson，且将txt文件放到hoshino运行目录
+关于音游Arcaea的相关查询。发送arc帮助可以查看相关指令。需要安装依赖demjson、websocket-client和Brotli，且将txt文件放到hoshino运行目录
 
 ### 老婆生成器
 
