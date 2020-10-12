@@ -70,7 +70,10 @@ def query(id: str):
 
 
 def best(id: str, num: int):
-    num = 5
+    if num < 1:
+        return []
+    if num > 30:
+        return []    
     result = []
     s = ""
     song_title, userinfo, scores = _query(id)

@@ -14,10 +14,10 @@ f = open('ds.txt', 'r', encoding='utf-8')
 dss = f.readlines()
 f.close()
 
-help_text = '''欢迎使用Arcaea查询功能。支持的命令如下(注意空格；玩家名无法查询时请用好友码)：
+help_text = '''欢迎使用Arcaea查询功能。支持的命令如下：
 ds <曲名/等级>:查询定数
 arc <玩家名/好友码>:查询玩家的ptt、r10/b30和最近游玩的歌曲
-best <玩家名/好友码>:查询玩家ptt前5的歌曲'''
+best <玩家名/好友码> <n>:查询玩家ptt前n的歌曲(best命令具有刷屏风险，大于10请尽量私聊查询)'''
 
 
 @sv.on_command('arc帮助', only_to_me=False)
@@ -27,7 +27,7 @@ async def help(session: CommandSession):
 
 @sv.on_command('best', only_to_me=False)
 async def lookup(session: CommandSession):
-    await session.send("Looking up %s" % session.state['id'])
+    await session.send("Looking up %s\nWarning: best命令具有刷屏风险，大于10请尽量私聊查询~" % session.state['id'])
     QueryThread(session.cmd, session.ctx, session.bot, session.state).start()
 
 
