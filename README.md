@@ -51,4 +51,4 @@ steam或其他平台游戏促销/喜加一的查询插件。需要安装依赖ne
 
 (如果需要的话)安装对应模块的依赖，将模块文件夹放进modules下，config的__bot__.py里添加模块。然后重启hoshino。
 
-鸣谢@Angel-Hair，@farewell12345，@kkbllt
+鸣谢@Angel-Hair，@farewell12345，@kkbllt，@Diving-Fish
