@@ -14,7 +14,7 @@ f = open('ds.txt', 'r', encoding='utf-8')
 dss = f.readlines()
 f.close()
 
-help_text = '''欢迎使用Arcaea查询功能。支持的命令如下：
+help_text = '''欢迎使用Arcaea查询功能。支持的命令如下(注意空格；玩家名无法查询时请用好友码)：
 ds <曲名/等级>:查询定数
 arc <玩家名/好友码>:查询玩家的ptt、r10/b30和最近游玩的歌曲
 best <玩家名/好友码>:查询玩家ptt前5的歌曲'''
