@@ -20,6 +20,10 @@
 
 启用模块前请修改hoshino的chat.py里“老婆”的指令回复以解除冲突（当然改这玩意的__init__.py也可以）
 
+### 人工智障
+
+重构了之前改过的垃圾废案。支持群聊自定义修改回复概率，优化了之前100%插嘴的问题。需要申请并填入腾讯AI应用的id和key
+
 ### 搜图
 
 整合了 SauceNAO 和 ascii2d 的识图插件。可以自行修改超时时间、返回数量等。需要填入SauceNAO的APIkey。安装依赖kth_timeoutdecorator
@@ -51,4 +55,4 @@ steam或其他平台游戏促销/喜加一的查询插件。需要安装依赖ne
 
 (如果需要的话)安装对应模块的依赖，将模块文件夹放进modules下，config的__bot__.py里添加模块。然后重启hoshino。
 
-鸣谢@Angel-Hair，@farewell12345，@kkbllt，@Diving-Fish
+鸣谢@Angel-Hair，@farewell12345，@kkbllt
