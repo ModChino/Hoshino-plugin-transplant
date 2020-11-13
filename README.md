@@ -8,9 +8,9 @@
 <details>
 <summary><mark> 点击展开</mark></summary>
 
-### Arcaea查询
+### 人工智障
 
-关于音游Arcaea的相关查询。发送arc帮助可以查看相关指令。需要安装依赖demjson、websocket-client和Brotli，且将txt文件放到hoshino运行目录
+重构了之前改过的垃圾废案。支持群聊自定义修改回复概率，优化了之前100%插嘴的问题。需要申请并填入腾讯AI应用的id和key
 
 ### 老婆生成器
 
@@ -19,10 +19,6 @@
 （不是很阳间的功能，默认关闭需要启用服务，使用前请三思）。
 
 启用模块前请修改hoshino的chat.py里“老婆”的指令回复以解除冲突（当然改这玩意的__init__.py也可以）
-
-### 人工智障
-
-重构了之前改过的垃圾废案。支持群聊自定义修改回复概率，优化了之前100%插嘴的问题。需要申请并填入腾讯AI应用的id和key
 
 ### 搜图
 
@@ -46,7 +42,11 @@ steam或其他平台游戏促销/喜加一的查询插件。需要安装依赖ne
 
 ### 迫害龙王
 
-一个迫害龙王插件。需要在res包的img下新建文件夹longwang，把收集到的表情包丢进去，并将第一张重命名为dragon1.jpg，第X张就是dragonX.jpg。 然后打开代码第30行，图片改为相应张数。
+一个迫害龙王插件。需要在res包的img下新建文件夹longwang，把龙王表情包丢进去
+
+### Arcaea查询
+
+关于音游Arcaea的相关查询。发送arc帮助可以查看相关指令。需要安装依赖demjson、websocket-client和Brotli，且将txt文件放到hoshino运行目录
 
 </details>
 <br>
