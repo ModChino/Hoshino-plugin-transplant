@@ -1,7 +1,7 @@
 # Salmon-plugins-transplant
 
 简单修改其他nonebot的插件以移植到HoshinoBot。
-感谢大佬的项目支持。
+感谢大佬的项目支持。（python3.8)
 
 ## 功能说明
 
