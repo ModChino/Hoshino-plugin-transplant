@@ -24,6 +24,10 @@
 
 整合了 SauceNAO 和 ascii2d 的识图插件。可以自行修改超时时间、返回数量等。需要填入SauceNAO的APIkey。安装依赖kth_timeoutdecorator
 
+### 自检
+
+简单的服务器自检插件。将check.py.example文件重命名后放入hoshino.config文件夹。安装依赖psutil
+
 ### steam促销查询/免费游戏领取
 
 steam或其他平台游戏促销/喜加一的查询插件。需要安装依赖nest_asyncio
