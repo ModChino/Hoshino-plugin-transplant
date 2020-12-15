@@ -18,7 +18,7 @@ class Check():
         self.packets_recv = 0
         self.packet_lost = 0
         self.baidu = 404
-        self.google = 404
+        # self.google = 404
         self.process_name_list = []
         self.process_status_list = []
         self.user_list =[]
@@ -55,15 +55,15 @@ class Check():
             if sum(check_list) == 4:
                 return "如果还能看到消息那一定是奇迹……\n⚠请在群聊中发送自检指令获取详细信息"
             if sum(check_list[:3]) != 0:
-                return "啊……我感觉……好热……\n⚠请在群聊中发送自检指令获取详细信息"
-            if check_list[4] == 1:
-                return "我节点断了……(部分功能会受到影响)"
+                return "啊……感觉……好热……\n⚠请在群聊中发送自检指令获取详细信息"
+            if sum(check_list[3:4]) == 2:
+                return "网线被拔了?!\n⚠请在群聊中发送自检指令获取详细信息"
         else:
             putline.append("当前网络状态：\n上传：{}MB\n接收：{}MB\n丢包率: {}%\n※请留意服务器的运行状态".format(self.send, self.recv, self.packet_lost))
             return "\n".join(putline)
 
     async def get_check_simple(self, max_performance_percent=[92,92,92]) -> list:
-        check_list = [0,0,0,0,0,0]
+        check_list = [0,0,0,0,0]
         self.run_all_check()
         if self.cpu_percent > max_performance_percent[0]:
             check_list[0] = 1
@@ -73,11 +73,11 @@ class Check():
             check_list[2] = 1
         if self.baidu != 200:
             check_list[3] = 1
-        if self.google != 200:
-            check_list[4] = 1
+        # if self.google != 200:
+            # check_list[4] = 1
         for status in self.process_status_list:
             if status != 'running':
-                check_list[5] = 1
+                check_list[4] = 1
                 break      
         return check_list
 
@@ -101,13 +101,12 @@ class Check():
         except:
             self.baidu = 404
             logger.warning("Baidu request failed.")
+        # try:
+            # self.google = requests.get("http://www.google.com").status_code
+        # except:
+            # self.google = 404
+            # logger.warning("Google request failed.")
 
-        try:
-            self.google = requests.get("http://www.google.com").status_code
-        except:
-            self.google = 404
-            logger.warning("Google request failed.")
-            
     def get_users_check(self):
         user_list = []
         suser_l = psutil.users()
