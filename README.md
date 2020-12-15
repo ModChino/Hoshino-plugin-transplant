@@ -63,4 +63,5 @@ steam或其他平台游戏促销/喜加一的查询插件。需要安装依赖ne
 [@Angel-Hair](https://github.com/Angel-Hair)，
 [@farewell12345](https://github.com/farewell12345)，
 [@kkbllt](https://github.com/kkbllt)，
-[@Diving-Fish](https://github.com/Diving-Fish)
+[@Diving-Fish](https://github.com/Diving-Fish)，
+[@Chendihe4975](https://github.com/Chendihe4975)
