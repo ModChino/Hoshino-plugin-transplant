@@ -26,7 +26,7 @@ async def music_recommend(session: CommandSession):
             await session.send("[ERROR]Not found Check Report")
 
 
-@scheduler.scheduled_job('cron', hour='*', minute='13') 
+@scheduler.scheduled_job('cron', hour='*/3', minute='13') 
 async def check_task():
     bot = nonebot.get_bot()
     weihu = hoshino.config.SUPERUSERS[0]
