@@ -1,5 +1,7 @@
 import psutil
 import requests
+import os
+import time
 from datetime import datetime
 from hoshino import log
 
@@ -14,6 +16,9 @@ class Check():
         self.boot_time = 0
         self.send = 0
         self.recv = 0
+        self.sent_now = 0
+        self.recv_now = 0
+        self.unit_now = []
         self.packets_sent = 0
         self.packets_recv = 0
         self.packet_lost = 0
@@ -33,7 +38,7 @@ class Check():
     async def get_check_info(self):
         self.run_all_check()
         putline = []
-        putline.append("--Performance--\n[Cpu] {}%\n[Memory] {}%\n[Disk] {}%\n[Boot time] {}\n--Network--\n[Send] {}MB\n[Receive] {}MB\n[Packets sent] {}\n[Packets recv] {}\n[Packets lost] {}%".format(self.cpu_percent, self.memory_percent, self.disk_percent, self.boot_time, self.send, self.recv, self.packets_sent, self.packets_recv, self.packet_lost))        
+        putline.append("--Performance--\n[Cpu] {}%\n[Memory] {}%\n[Disk] {}%\n[Boot time] {}\n--Network--\n[Send now] {}{}\n[Recv now] {}{}\n[Send all] {}GB\n[Recv all] {}GB\n[Packets sent] {}\n[Packets recv] {}\n[Packets lost] {}%".format(self.cpu_percent, self.memory_percent, self.disk_percent, self.boot_time, self.sent_now, self.unit_now, self.recv_now, self.unit_now, self.send, self.recv, self.packets_sent, self.packets_recv, self.packet_lost))        
         if self.process_name_list:
             putline.append("--Process--")
             for name, status in zip(self.process_name_list, self.process_status_list):
@@ -59,7 +64,7 @@ class Check():
             if sum(check_list[3:4]) == 2:
                 return "网线被拔了?!\n⚠请在群聊中发送自检指令获取详细信息"
         else:
-            putline.append("当前网络状态：\n上传：{}MB\n接收：{}MB\n丢包率: {}%\n※请留意服务器的运行状态".format(self.send, self.recv, self.packet_lost))
+            putline.append("当前网络状态：\n上传：{}{}\n接收：{}{}\n丢包率: {}%\n※请留意服务器的运行状态".format(self.sent_now, self.unit_now, self.recv_now, self.unit_now, self.packet_lost))
             return "\n".join(putline)
 
     async def get_check_simple(self, max_performance_percent=[92,92,92]) -> list:
@@ -89,13 +94,37 @@ class Check():
         psutil.boot_time()).strftime("%Y-%m-%d %H: %M: %S")
 
     def get_network_check(self):
-        self.send = round(psutil.net_io_counters().bytes_sent/1024/1024, 2)
-        self.recv = round(psutil.net_io_counters().bytes_recv/1024/1024, 2)
+        self.send = round(psutil.net_io_counters().bytes_sent/1024/1024/1024, 2)
+        self.recv = round(psutil.net_io_counters().bytes_recv/1024/1024/1024, 2)
         self.packets_sent = psutil.net_io_counters().packets_sent
         self.packets_recv = psutil.net_io_counters().packets_recv
         self.packet_lost = round(
         psutil.net_io_counters().packets_recv / psutil.net_io_counters().packets_sent, 2
     )
+        interval = 1                        
+        k = 1024                            
+        m = 1048576                       
+        byteSent1 = round(psutil.net_io_counters().bytes_sent, 2)  
+        byteRecv1 = round(psutil.net_io_counters().bytes_recv, 2)
+        time.sleep(interval)                                                  
+        os.system('cls')                               # 执行清屏命令 
+        byteSent2 = round(psutil.net_io_counters().bytes_sent, 2)  
+        byteRecv2 = round(psutil.net_io_counters().bytes_recv, 2)  
+        sent = byteSent2-byteSent1                    
+        recve = byteRecv2-byteRecv1                    
+        if sent > m or recve > m :             # 字节数达到 m 时以 M 作为单位
+            sent = sent / m 
+            recve = recve / m
+            unit = 'MB/s'
+        elif sent > k or recve > k:              # 字节数达到 k 时以 K 作为单位
+            sent = sent / k
+            recve = recve / k
+            unit = 'KB/s' 
+        else:
+            unit = 'B/s'  
+        self.sent_now = sent
+        self.recv_now = recve
+        self.unit_now = unit           
         try:
             self.baidu = requests.get("http://www.baidu.com").status_code
         except:
