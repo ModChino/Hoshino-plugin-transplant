@@ -52,20 +52,21 @@ class Check():
     async def get_check_easy(self, max_performance_percent=[92,92,92]):
         self.run_all_check()
         putline = []
+        putline.append("当前网络状态：\n上传：{}{}\n接收：{}{}\n丢包率: {}%".format(self.sent_now, self.unit_now, self.recv_now, self.unit_now, self.packet_lost))
         check_list = await self.get_check_simple()
         if sum(check_list) != 0:
             logger.error("Computer problem detected. check code: {}".format(check_list))
             if sum(check_list) == 5:
-                return "我去世了……（安详\n⚠请在群聊中发送自检指令获取详细信息"
+                putline.append("我去世了……（安详\n⚠请在群聊中发送自检指令获取详细信息")
             if sum(check_list) == 4:
-                return "如果还能看到消息那一定是奇迹……\n⚠请在群聊中发送自检指令获取详细信息"
+                putline.append("如果还能看到消息那一定是奇迹……\n⚠请在群聊中发送自检指令获取详细信息")
             if sum(check_list[:3]) != 0:
-                return "啊……感觉……好热……\n⚠请在群聊中发送自检指令获取详细信息"
+                putline.append("啊……感觉……好热……\n⚠请在群聊中发送自检指令获取详细信息")
             if sum(check_list[3:4]) == 2:
-                return "网线被拔了?!\n⚠请在群聊中发送自检指令获取详细信息"
+                putline.append("网线被拔了?!\n⚠请在群聊中发送自检指令获取详细信息")
         else:
-            putline.append("当前网络状态：\n上传：{}{}\n接收：{}{}\n丢包率: {}%\n※请留意服务器的运行状态".format(self.sent_now, self.unit_now, self.recv_now, self.unit_now, self.packet_lost))
-            return "\n".join(putline)
+            putline.append("※请留意服务器的运行状态")
+        return "\n".join(putline)
 
     async def get_check_simple(self, max_performance_percent=[92,92,92]) -> list:
         check_list = [0,0,0,0,0]
