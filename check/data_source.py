@@ -52,7 +52,7 @@ class Check():
     async def get_check_easy(self, max_performance_percent=[92,92,92]):
         self.run_all_check()
         putline = []
-        putline.append("当前网络状态：\n上传：{}{}\n接收：{}{}\n丢包率: {}%".format(self.sent_now, self.unit_now, self.recv_now, self.unit_now, self.packet_lost))
+        putline.append("当前服务器状态：\nCpu：{}%\n内存：{}%\n丢包率: {}%".format(self.cpu_percent, self.memory_percent, self.packet_lost))
         check_list = await self.get_check_simple()
         if sum(check_list) != 0:
             logger.error("Computer problem detected. check code: {}".format(check_list))
@@ -65,7 +65,7 @@ class Check():
             if sum(check_list[3:4]) == 2:
                 putline.append("网线被拔了?!\n⚠请在群聊中发送自检指令获取详细信息")
         else:
-            putline.append("※请留意服务器的运行状态")
+            putline.append("※请留意服务器的网络状态")
         return "\n".join(putline)
 
     async def get_check_simple(self, max_performance_percent=[92,92,92]) -> list:
