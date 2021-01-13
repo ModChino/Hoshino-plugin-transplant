@@ -33,6 +33,9 @@ async def longwang(session):
     _nlmt.increase(uid)
     gid = session.ctx['group_id']
     dragon_king=await session.bot.get_group_honor_info(group_id=gid,type='talkative')
+    if not 'current_talkative' in dragon_king:
+        await session.send('本群暂时还没有龙王哦……', at_sender=True)
+        return
     dragon_king=dragon_king['current_talkative']['user_id']
     res_list = os.listdir(res_path)
     pic = random.choice(res_list)
