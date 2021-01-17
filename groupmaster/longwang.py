@@ -49,4 +49,4 @@ async def longwang(session):
     longwang_img_message = MessageSegment.image(pic2b64(longwang_img))
     reply=random.choice(['龙王出来挨透','龙王出来喷水'])
     _nlmt.increase(uid)
-    await session.finish(f'[CQ:at,qq={dragon_king}]\n{reply}\n{longwang}')
+    await session.finish(f'[CQ:at,qq={dragon_king}]\n{reply}\n{longwang_img_message}')
