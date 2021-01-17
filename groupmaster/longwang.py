@@ -32,6 +32,9 @@ async def longwang(session):
     _flmt.start_cd(uid)
     gid = session.ctx['group_id']
     dragon_king=await session.bot.get_group_honor_info(group_id=gid,type='talkative')
+    if not 'current_talkative' in dragon_king:
+        await session.send('本群暂时还没有龙王哦……', at_sender=True)
+        return
     dragon_king=dragon_king['current_talkative']['user_id']
     dir_list = os.listdir(imgbase_path)
     img_path = path.join(imgbase_path, random.choice(dir_list))
@@ -46,4 +49,4 @@ async def longwang(session):
     longwang_img_message = MessageSegment.image(pic2b64(longwang_img))
     reply=random.choice(['龙王出来挨透','龙王出来喷水'])
     _nlmt.increase(uid)
-    await session.finish(f'[CQ:at,qq={dragon_king}]\n{reply}\n{longwang_img_message}')
+    await session.finish(f'[CQ:at,qq={dragon_king}]\n{reply}\n{longwang}')
