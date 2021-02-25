@@ -13,9 +13,9 @@ _max = 3
 EXCEED_NOTICE = f'您今天已经迫害过{_max}次龙王了，请明早5点后再来！'
 _nlmt = DailyNumberLimiter(_max)
 _flmt = FreqLimiter(5)
-imgbase_path = R.img('longwang').path
-if not path.exists(imgbase_path):
-	os.makedirs(imgbase_path)
+imgbase_path = 'longwang'
+if not path.exists(R.img(imgbase_path).path):
+    os.makedirs(R.img(imgbase_path).path)
 
 sv = Service('longwang')
 
@@ -36,7 +36,7 @@ async def longwang(session):
         await session.send('本群暂时还没有龙王哦……', at_sender=True)
         return
     dragon_king=dragon_king['current_talkative']['user_id']
-    dir_list = os.listdir(imgbase_path)
+    dir_list = os.listdir(R.img(imgbase_path).path)
     img_path = path.join(imgbase_path, random.choice(dir_list))
     count = 0
     while os.path.isdir(img_path) == True:
