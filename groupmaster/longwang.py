@@ -37,7 +37,11 @@ async def longwang(session):
         return
     dragon_king=dragon_king['current_talkative']['user_id']
     dir_list = os.listdir(R.img(imgbase_path).path)
-    img_path = path.join(imgbase_path, random.choice(dir_list))
+    try:
+        img_path = path.join(imgbase_path, random.choice(dir_list))
+    except Exception:
+        hoshino.logger.error('缺少龙王图片资源或目录下文件夹过多')
+        return
     count = 0
     while os.path.isdir(img_path) == True:
         img_path = path.join(imgbase_path, random.choice(dir_list))
