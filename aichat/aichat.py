@@ -89,13 +89,13 @@ async def disable_aichat(bot, ev: CQEvent):
 
 @sv.on_message('group')
 async def ai_reply(bot, context):   
+    msg = str(context['message'])
+    if msg.startswith(f'[CQ:at,qq={context["self_id"]}]'):
+        return
     if str(context.group_id) in ai_chance.chance:
         if not random.randint(1,100) <= int(ai_chance.chance[str(context.group_id)]):
             return
         else:           
-            msg = str(context['message'])
-            if msg.startswith(f'[CQ:at,qq={context["self_id"]}]'):
-                return
             text = re.sub(cq_code_pattern, '', msg).strip()
             if text == '':
                 return
