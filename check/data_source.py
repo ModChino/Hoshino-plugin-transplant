@@ -108,7 +108,7 @@ class Check():
         byteSent1 = round(psutil.net_io_counters().bytes_sent, 2)  
         byteRecv1 = round(psutil.net_io_counters().bytes_recv, 2)
         time.sleep(interval)                                                  
-        os.system('cls')                               # 执行清屏命令 
+        os.system('clear')                               # 执行清屏命令 
         byteSent2 = round(psutil.net_io_counters().bytes_sent, 2)  
         byteRecv2 = round(psutil.net_io_counters().bytes_recv, 2)  
         sent = byteSent2-byteSent1                    
