@@ -23,7 +23,7 @@ class Check():
         self.packets_recv = 0
         self.packet_lost = 0
         self.baidu = 404
-        # self.google = 404
+        self.google = 404
         self.process_name_list = []
         self.process_status_list = []
         self.user_list =[]
@@ -55,15 +55,17 @@ class Check():
         putline.append("当前服务器状态：\nCpu：{}%\n内存：{}%\n丢包率: {}%".format(self.cpu_percent, self.memory_percent, self.packet_lost))
         check_list = await self.get_check_simple()
         if sum(check_list) != 0:
-            logger.error("Computer problem detected. check code: {}".format(check_list))
+            salmon.logger.error("System problem detected. check code: {}".format(check_list))
             if sum(check_list) == 5:
-                putline.append("我去世了……（安详\n⚠请在群聊中发送自检指令获取详细信息")
+                putline.append("※服务器已经安详地去了。")
             if sum(check_list) == 4:
-                putline.append("如果还能看到消息那一定是奇迹……\n⚠请在群聊中发送自检指令获取详细信息")
+                putline.append("※请检查服务器状态！")
             if sum(check_list[:3]) != 0:
-                putline.append("啊……感觉……好热……\n⚠请在群聊中发送自检指令获取详细信息")
+                putline.append("※服务器国内线路异常。")
+            if sum(check_list[:4]) != 0:
+                putline.append("※服务器国际线路异常。")
             if sum(check_list[3:4]) == 2:
-                putline.append("网线被拔了?!\n⚠请在群聊中发送自检指令获取详细信息")
+                putline.append("※网络异常。")
         else:
             putline.append("※请留意服务器的网络状态")
         return "\n".join(putline)
@@ -79,8 +81,8 @@ class Check():
             check_list[2] = 1
         if self.baidu != 200:
             check_list[3] = 1
-        # if self.google != 200:
-            # check_list[4] = 1
+        if self.google != 200:
+            check_list[4] = 1
         for status in self.process_status_list:
             if status != 'running':
                 check_list[4] = 1
@@ -95,33 +97,33 @@ class Check():
         psutil.boot_time()).strftime("%Y-%m-%d %H: %M: %S")
 
     def get_network_check(self):
-        self.send = round(psutil.net_io_counters().bytes_sent/1024/1024/1024, 2)
-        self.recv = round(psutil.net_io_counters().bytes_recv/1024/1024/1024, 2)
+        self.send = Decimal(psutil.net_io_counters().bytes_sent/1024/1024/1024).quantize(Decimal('0.00'))
+        self.recv = Decimal(psutil.net_io_counters().bytes_recv/1024/1024/1024).quantize(Decimal('0.00'))
         self.packets_sent = psutil.net_io_counters().packets_sent
         self.packets_recv = psutil.net_io_counters().packets_recv
-        self.packet_lost = round(
-        psutil.net_io_counters().packets_recv / psutil.net_io_counters().packets_sent, 2
-    )
+        self.packet_lost = Decimal(psutil.net_io_counters().packets_recv / psutil.net_io_counters().packets_sent).quantize(Decimal('0.00'))
         interval = 1                        
         k = 1024                            
         m = 1048576                       
-        byteSent1 = round(psutil.net_io_counters().bytes_sent, 2)  
-        byteRecv1 = round(psutil.net_io_counters().bytes_recv, 2)
+        byteSent1 = psutil.net_io_counters().bytes_sent
+        byteRecv1 = psutil.net_io_counters().bytes_recv
         time.sleep(interval)                                                  
         os.system('clear')                               # 执行清屏命令 
-        byteSent2 = round(psutil.net_io_counters().bytes_sent, 2)  
-        byteRecv2 = round(psutil.net_io_counters().bytes_recv, 2)  
+        byteSent2 = psutil.net_io_counters().bytes_sent
+        byteRecv2 = psutil.net_io_counters().bytes_recv
         sent = byteSent2-byteSent1                    
         recve = byteRecv2-byteRecv1                    
-        if sent > m or recve > m :             # 字节数达到 m 时以 M 作为单位
-            sent = sent / m 
-            recve = recve / m
+        if sent > m or recve > m :             # 字节数达到 m 时以 M 作为单位，并四舍五入
+            sent = Decimal(sent / m).quantize(Decimal('0.00'))
+            recve = Decimal(recve / m).quantize(Decimal('0.00'))
             unit = 'MB/s'
-        elif sent > k or recve > k:              # 字节数达到 k 时以 K 作为单位
-            sent = sent / k
-            recve = recve / k
+        elif sent > k or recve > k:              # 字节数达到 k 时以 K 作为单位，并四舍五入
+            sent = Decimal(sent / k).quantize(Decimal('0.00'))
+            recve = Decimal(recve / k).quantize(Decimal('0.00'))
             unit = 'KB/s' 
         else:
+            sent = Decimal(sent).quantize(Decimal('0.00'))
+            recve = Decimal(recve).quantize(Decimal('0.00'))
             unit = 'B/s'  
         self.sent_now = sent
         self.recv_now = recve
@@ -131,11 +133,11 @@ class Check():
         except:
             self.baidu = 404
             logger.warning("Baidu request failed.")
-        # try:
-            # self.google = requests.get("http://www.google.com").status_code
-        # except:
-            # self.google = 404
-            # logger.warning("Google request failed.")
+        try:
+            self.google = requests.get("http://www.google.com").status_code
+        except:
+            self.google = 404
+            logger.warning("Google request failed.")
 
     def get_users_check(self):
         user_list = []
