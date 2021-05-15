@@ -15,15 +15,12 @@ sv = Service('check', use_priv=priv.SUPERUSER, manage_priv=priv.SUPERUSER, visib
 
 @sv.on_command('check', aliases=('自检', '自檢', '自我检查', '自我檢查'))
 async def music_recommend(session: CommandSession):
-    if not priv.check_priv(session.event, priv.SUPERUSER):
-        await session.send("大丈夫だよ。心配してくれてありがとう。")
+    check_report_admin = await check.get_check_info()
+    if check_report_admin:
+        await session.send(check_report_admin)
     else:
-        check_report_admin = await check.get_check_info()
-        if check_report_admin:
-            await session.send(check_report_admin)
-        else:
-            logger.error("Not found Check Report")
-            await session.send("[ERROR]Not found Check Report")
+        logger.error("Not found Check Report")
+        await session.send("[ERROR]Not found Check Report")
 
 
 @scheduler.scheduled_job('cron', hour='*/3', minute='13') 
