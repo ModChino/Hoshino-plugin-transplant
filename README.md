@@ -1,4 +1,4 @@
-# Salmon-plugins-transplant
+# Hoshino-plugins-transplant
 
 简单修改其他nonebot的插件以移植到HoshinoBot。
 感谢大佬的项目支持。（python3.8)
@@ -11,6 +11,8 @@
 ### 人工智障
 
 重构了之前改过的垃圾废案。支持群聊自定义修改回复概率，优化了之前100%插嘴的问题。开启服务后需要先设定概率才能正常使用功能。需要申请并填入腾讯AI应用的id和key
+  
+**腾讯智能对话的旧API已弃用，新API与本功能不兼容，请尽快停用。**
 
 ### 老婆生成器
 
