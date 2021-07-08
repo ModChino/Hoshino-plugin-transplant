@@ -2,6 +2,7 @@ import psutil
 import requests
 import os
 import time
+from decimal import *
 from datetime import datetime
 from hoshino import log
 
